@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="993c8a6065d9469cb80121b6b8395cb8" Name="Diagram1">
+        <EntityTypeShape EntityType="HilurModel.Comment" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HilurModel.Entry" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HilurModel.SiteUser" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HilurModel.Vote" Width="1.5" PointX="6" PointY="2.75" IsExpanded="true" />
+        <AssociationConnector Association="HilurModel.FK_comment_article" ManuallyRouted="false" />
+        <AssociationConnector Association="HilurModel.FK_comment_user" ManuallyRouted="false" />
+        <AssociationConnector Association="HilurModel.FK_vote_article" ManuallyRouted="false" />
+        <AssociationConnector Association="HilurModel.FK_vote_user" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

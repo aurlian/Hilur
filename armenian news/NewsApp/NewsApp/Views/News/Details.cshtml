@@ -1,0 +1,59 @@
+﻿@model NewsApp.Models.Entry
+
+@{
+    ViewBag.Title = @Model.Title;
+}
+
+@section header 
+{
+     <link href="@Url.Content("~/Content/List.css")" rel="stylesheet" type="text/css" />     
+}
+
+<div class="entry">
+    <div class="votingBox">
+        
+        <div class="votesbox">@Html.DisplayFor(modelItem => Model.Score)</div>
+        
+    </div>
+
+    
+    <div class="entryTextDetail">
+        <div class="entryTitle">  @Html.DisplayFor(modelItem => Model.Title)</div>
+        <div class="entrysubtitle1"> Published at: @Html.DisplayFor(modelItem => Model.PubDate)</div>
+               
+    </div>     
+     
+</div>
+<div class="PostBox">
+    <p>@Model.Post</p>
+</div>
+<div class="clearLeft"></div>
+
+<div id="fb-root"></div>
+
+
+<h2 class="commentCountDetail"> @Model.Comments.Count Comments </h2> 
+
+<div id="comments">
+
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm())
+        {
+            <textarea id="commentTxt" name="comment" cols="60" rows="2"></textarea>
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        }
+    }
+
+
+    @foreach (var item in Model.Comments)
+    {
+        <div class="comment">
+            <div class="commentHeader"> @item.SiteUser.Username <span class="commentDate">on @item.Date</span></div>
+            <div class="commentBody"> @item.Description</div>
+        </div>
+    }
+
+</div>

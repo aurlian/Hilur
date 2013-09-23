@@ -1,0 +1,155 @@
+﻿@model PagedList.IPagedList<NewsApp.Models.Entry>
+@{
+    ViewBag.Title = "Top Armenian news";
+}
+@section header 
+{
+    
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            $('.upArrowNL').click(function () {
+                document.location.href = "/Account/LogOn";
+            });
+
+            $('.downArrowNL').click(function () {
+                document.location.href = "/Account/LogOn";
+            });
+
+            $('.upArrow').click(function () {
+                var current = $(this);
+                $.post("/News/VoteUp", { id: current.children('input:first').val() }, function (data) {
+                    if (data == "True") {
+                        var voteCount = current.siblings('div:first');
+                        voteCount.html(parseInt(voteCount.html()) + 1);
+                        current.siblings('.downArrow:first').hide();
+                        current.hide();
+                    }
+                    else {
+                        current.siblings('.downArrow:first').hide();
+                        current.hide();
+                    }
+                });
+
+            });
+
+            $('.downArrow').click(function () {
+                var current = $(this);
+                $.post("/News/VoteDown", { id: current.children('input:first').val() }, function (data) {
+                    if (data == "True") {
+                        var voteCount = current.siblings('.voteNumber:first');
+                        voteCount.html(parseInt(voteCount.html()) - 1);
+                        current.siblings('.upArrow:first').hide();
+                        current.hide();
+                    }
+                    else {
+                        current.siblings('.upArrow:first').hide();
+                        current.hide();
+                    }
+                });
+
+            });
+
+        });
+     
+    </script>
+}
+
+
+@foreach (var item in Model)
+{
+
+    if (Request.IsAuthenticated)
+    {    
+        <div  class="block">
+            	<span class="block_inside">
+
+                	<div class="image_block">
+                    	<div class="upArrow">   
+                            <input type="hidden" value="@item.Id" />                         
+                        </div>
+                        <div class="voteNumber">
+                            @Html.DisplayFor(modelItem => item.Score)
+                        </div>
+                        <div class="downArrow">
+                            <input type="hidden" value="@item.Id" />
+                        </div>
+                    </div>
+                    <div class="text_block">
+                       <div class="entryTitle">
+                           @Html.ActionLink(@item.Title , "Details", new { id = item.Id })
+                        </div>
+                        <div class="entrysubtitle1">
+                                Published at: @Html.DisplayFor(modelItem => item.PubDate)
+                        </div>
+                        <div class="entrysubtitle2">
+                                @Html.ActionLink(@item.Comments.Count + " Comments", "Details", new { id = item.Id })
+                        </div>                        
+                	</div>
+
+                </span>
+        </div>
+    
+    }
+    else
+    {
+        <div  class="block">
+            	<span class="block_inside">
+
+                	<div class="image_block">
+                    	<div class="upArrowNL">   
+                            <input type="hidden" value="@item.Id" />                         
+                        </div>
+                        <div class="voteNumber">
+                            @Html.DisplayFor(modelItem => item.Score)
+                        </div>
+                        <div class="downArrowNL">
+                            <input type="hidden" value="@item.Id" />
+                        </div>
+                    </div>
+                    <div class="text_block">
+                       <div class="entryTitle">
+                            @Html.ActionLink(@item.Title , "Details", new { id = item.Id })
+                        </div>
+                        <div class="entrysubtitle1">
+                                Published at: @Html.DisplayFor(modelItem => item.PubDate)
+                        </div>
+                        <div class="entrysubtitle2">
+                                @Html.ActionLink(@item.Comments.Count + " Comments", "Details", new { id = item.Id })
+                        </div>                        
+                	</div>
+
+                </span>
+        </div>
+    }
+}
+<div id="block_content">
+    <div id="pager">
+
+    @if (Model.HasPreviousPage)
+    {
+        string source = ViewBag.Source;
+        @Html.ActionLink("Previous",source , new { page = Model.PageNumber - 1 }, new { @class = "button" }) 
+    }
+    else
+    { 
+        
+        @:Previous
+    }
+    &nbsp;
+    @if (Model.HasNextPage)
+    {
+        string source = ViewBag.Source;
+        @Html.ActionLink("Next", source, new { page = Model.PageNumber + 1 }, new { @class = "button" }) 
+        
+    }
+    else
+    { 
+        @:Next
+           
+    }
+
+    </div>
+</div>
