@@ -4,11 +4,6 @@
     ViewBag.Title = @Model.Title;
 }
 
-@section header 
-{
-     <link href="@Url.Content("~/Content/List.css")" rel="stylesheet" type="text/css" />     
-}
-
 <div class="entry">
     <div class="votingBox">
         
@@ -47,28 +42,3 @@
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     
 
-@*<h2 class="commentCountDetail"> @Model.Comments.Count Comments </h2> 
-
-<div id="comments">
-
-    @if (Request.IsAuthenticated)
-    {
-        using (Html.BeginForm())
-        {
-            <textarea id="commentTxt" name="comment" cols="60" rows="2"></textarea>
-            <p>
-                <input type="submit" value="Save" />
-            </p>
-        }
-    }
-
-
-    @foreach (var item in Model.Comments)
-    {
-        <div class="comment">
-            <div class="commentHeader"> @item.SiteUser.Username <span class="commentDate">on @item.Date</span></div>
-            <div class="commentBody"> @item.Description</div>
-        </div>
-    }
-
-</div>*@

@@ -85,7 +85,7 @@
                                 Published at: @Html.DisplayFor(modelItem => item.PubDate)
                         </div>
                         <div class="entrysubtitle2">
-                                @Html.ActionLink(@item.Comments.Count + " Comments", "Details", new { id = item.Id })
+                                <a href="@Html.Raw("http://hilur.com" + @Url.Action("Details", new { id = item.Id }) + "#disqus_thread")"></a>
                         </div>                        
                 	</div>
 
@@ -118,7 +118,7 @@
                                 Published at: @Html.DisplayFor(modelItem => item.PubDate)
                         </div>
                         <div class="entrysubtitle2">
-                            <a href="@Url.Action("Details", new { id = item.Id })#disqus_thread"></a>
+                            <a href="@Html.Raw("http://hilur.com" + @Url.Action("Details", new { id = item.Id }) + "#disqus_thread")"></a>
                         </div>                        
                 	</div>
 
