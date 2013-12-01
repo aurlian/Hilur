@@ -112,12 +112,13 @@
                     <div class="text_block">
                        <div class="entryTitle">
                             @Html.ActionLink(@item.Title , "Details", new { id = item.Id })
+                           
                         </div>
                         <div class="entrysubtitle1">
                                 Published at: @Html.DisplayFor(modelItem => item.PubDate)
                         </div>
                         <div class="entrysubtitle2">
-                                @Html.ActionLink(@item.Comments.Count + " Comments", "Details", new { id = item.Id })
+                            <a href="@Url.Action("Details", new { id = item.Id })#disqus_thread"></a>
                         </div>                        
                 	</div>
 

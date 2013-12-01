@@ -330,3 +330,16 @@ h2.logon {
     color: black;
 
 }
+
+.PostBox
+{
+background-color: white;
+opacity : 0.5;
+}
+
+p {
+font-family: "segoe ui";
+font-size : 1.2rem;
+font-weight: normal;
+line-height:1.5rem;
+}
