@@ -10,13 +10,19 @@
         <div class="votesbox">@Html.DisplayFor(modelItem => Model.Score)</div>
         
     </div>
-
     
     <div class="entryTextDetail">
         <div class="entryTitle">  @Html.DisplayFor(modelItem => Model.Title)</div>
         <div class="entrysubtitle1"> Published at: @Html.DisplayFor(modelItem => Model.PubDate)</div>
                
-    </div>     
+    </div> 
+    
+    @if(!string.IsNullOrEmpty(Model.ImageSrc))
+    {
+    <div class="articleImage">
+        <img src="@Model.ImageSrc" width="@Model.ImageWidth" height="@Model.ImageHeight" alt="@Model.ImageTitle" />
+    </div>
+    }    
      
 </div>
 <div class="PostBox">

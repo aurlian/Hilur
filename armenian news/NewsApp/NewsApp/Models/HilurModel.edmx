@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HilurModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HilurModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="HilurModelStoreContainer">
           <EntitySet Name="Comment" EntityType="HilurModel.Store.Comment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Entry" EntityType="HilurModel.Store.Entry" store:Type="Tables" Schema="dbo" />
@@ -49,6 +49,10 @@
           <Property Name="Post" Type="text" Nullable="false" />
           <Property Name="FetchDate" Type="datetime" Nullable="false" />
           <Property Name="Votes" Type="int" Nullable="false" />
+          <Property Name="ImageSrc" Type="varchar" MaxLength="300" />
+          <Property Name="ImageWidth" Type="int" />
+          <Property Name="ImageHeight" Type="int" />
+          <Property Name="ImageTitle" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="SiteUser">
           <Key>
@@ -127,8 +131,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HilurModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -180,6 +183,10 @@
           <Property Name="Score" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Comments" Relationship="HilurModel.FK_comment_article" FromRole="Entry" ToRole="Comment" />
           <NavigationProperty Name="Votes" Relationship="HilurModel.FK_vote_article" FromRole="Entry" ToRole="Vote" />
+          <Property Type="String" Name="ImageSrc" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ImageWidth" />
+          <Property Type="Int32" Name="ImageHeight" />
+          <Property Type="String" Name="ImageTitle" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SiteUser">
           <Key>
@@ -283,6 +290,10 @@
           <EntitySetMapping Name="Entries">
             <EntityTypeMapping TypeName="HilurModel.Entry">
               <MappingFragment StoreEntitySet="Entry">
+                <ScalarProperty Name="ImageTitle" ColumnName="ImageTitle" />
+                <ScalarProperty Name="ImageHeight" ColumnName="ImageHeight" />
+                <ScalarProperty Name="ImageWidth" ColumnName="ImageWidth" />
+                <ScalarProperty Name="ImageSrc" ColumnName="ImageSrc" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="PubDate" ColumnName="PubDate" />

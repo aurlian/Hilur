@@ -27,6 +27,10 @@ namespace NewsApp.Models
         public string Post { get; set; }
         public System.DateTime FetchDate { get; set; }
         public int Score { get; set; }
+        public string ImageSrc { get; set; }
+        public Nullable<int> ImageWidth { get; set; }
+        public Nullable<int> ImageHeight { get; set; }
+        public string ImageTitle { get; set; }
     
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Vote> Votes { get; set; }
