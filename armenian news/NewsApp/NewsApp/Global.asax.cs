@@ -80,14 +80,16 @@ namespace NewsApp
                     string title = Convert.ToString(dataRow["title"]);
                     //fetch content
                     string post = FetchPost(link);
-
-                    rssFeedItems.Add(new RssFeedItem
+                    if (!string.IsNullOrEmpty(post))
                     {
-                        Link = link,
-                        PublishDate = parsedDate,
-                        Title = title,
-                        Post = post
-                    });
+                        rssFeedItems.Add(new RssFeedItem
+                        {
+                            Link = link,
+                            PublishDate = parsedDate,
+                            Title = title,
+                            Post = post
+                        });
+                    }
                 }
             }
 
@@ -96,18 +98,26 @@ namespace NewsApp
 
         private string FetchPost(string link)
         {
-            WebRequest request = WebRequest.Create(link);
-            WebResponse response = request.GetResponse();
-            Stream data = response.GetResponseStream();
-            string html = String.Empty;
-            using (StreamReader sr = new StreamReader(data))
+            string html = string.Empty;
+            try
             {
-                html = sr.ReadToEnd();
-            }
-            int startIndex = html.IndexOf("<pre>") + "<pre>".Length;
-            int endIndex = html.IndexOf("</pre>");
+                WebRequest request = WebRequest.Create(link);
+                WebResponse response = request.GetResponse();
+                Stream data = response.GetResponseStream();
+                using (StreamReader sr = new StreamReader(data))
+                {
+                    html = sr.ReadToEnd();
+                }
+                int startIndex = html.IndexOf("<pre>") + "<pre>".Length;
+                int endIndex = html.IndexOf("</pre>");
 
-            return html.Substring(startIndex,endIndex - startIndex);
+                html = html.Substring(startIndex, endIndex - startIndex);
+            }
+            catch (Exception e)
+            {
+                //log
+            }
+            return html;
         }
 
         public void SaveEntries(List<RssFeedItem> list)
